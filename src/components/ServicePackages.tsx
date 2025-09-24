@@ -19,7 +19,7 @@ const ServicePackages = () => {
       ],
       price: "$3,000",
       priceNote: "+ GST",
-      image: "/images/Verticaltraining.jpg",
+      image: "/thankyouvideos/images/Verticaltraining.jpg",
       gradient: "from-blue-600 to-blue-800"
     },
     {
@@ -39,7 +39,7 @@ const ServicePackages = () => {
       price: "$3,000",
       priceNote: "+ GST + $200 per edited video",
       minOutput: "Minimum 10 videos",
-      image: "/images/Vertical2.jpg",
+      image: "/thankyouvideos/images/Vertical2.jpg",
       gradient: "from-transparent to-transparent"
     },
     {
@@ -59,7 +59,7 @@ const ServicePackages = () => {
       price: "$3,000",
       priceNote: "+ GST setup + $5 per video",
       minOutput: "Minimum 200 videos",
-      image: "/images/veritcal1.jpg",
+      image: "/thankyouvideos/images/veritcal1.jpg",
       gradient: "from-orange-600 to-orange-800"
     }
   ];

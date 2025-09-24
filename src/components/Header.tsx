@@ -33,7 +33,7 @@ const Header = () => {
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center space-x-2">
             <img 
-              src="/images/Vidzero.png" 
+              src="/thankyouvideos/images/Vidzero.png" 
               alt="Vidzero Logo" 
               className="h-8 w-8 transition-opacity duration-300"
             />

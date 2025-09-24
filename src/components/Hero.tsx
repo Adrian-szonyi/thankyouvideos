@@ -15,7 +15,7 @@ const Hero = () => {
               <div 
           className="absolute inset-0 bg-cover bg-no-repeat"
           style={{
-            backgroundImage: `url('/images/ZackBanner.jpg')`,
+            backgroundImage: `url('/thankyouvideos/images/ZackBanner.jpg')`,
             backgroundPosition: '70% center'
           }}
         />
