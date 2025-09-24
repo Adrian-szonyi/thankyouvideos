@@ -19,46 +19,42 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setSubmitStatus('idle');
+    
+    // Create email content
+    const subject = `New enquiry from ${formData.name} - ${formData.organisation}`;
+    const body = `
+Name: ${formData.name}
+Email: ${formData.email}
+Organization: ${formData.organisation}
+Package Interest: ${formData.package || 'Not specified'}
 
-    try {
-      const response = await fetch('https://formspree.io/f/xpqgqpqr', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          organisation: formData.organisation,
-          package: formData.package,
-          message: formData.message,
-          _subject: `New enquiry from ${formData.name} - ${formData.organisation}`,
-          _replyto: formData.email
-        })
-      });
+Message:
+${formData.message}
 
-      if (response.ok) {
-        setSubmitStatus('success');
-        setFormData({
-          name: '',
-          email: '',
-          organisation: '',
-          package: '',
-          message: ''
-        });
-      } else {
-        setSubmitStatus('error');
-      }
-    } catch (error) {
-      console.error('Form submission error:', error);
-      setSubmitStatus('error');
-    } finally {
-      setIsSubmitting(false);
-    }
+---
+This enquiry was sent from the Vidzero website contact form.
+    `.trim();
+
+    // Create mailto link
+    const mailtoLink = `mailto:adrian@vidzero.com.au?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    // Open email client
+    window.location.href = mailtoLink;
+    
+    setIsSubmitting(false);
+    setSubmitStatus('success');
+    
+    // Reset form
+    setFormData({
+      name: '',
+      email: '',
+      organisation: '',
+      package: '',
+      message: ''
+    });
   };
 
   return (
@@ -229,15 +225,27 @@ const Contact = () => {
 
               {submitStatus === 'success' && (
                 <div className="mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
-                  ✅ Thank you for your enquiry! We'll be in touch within 24 hours.
+                  ✅ Your email client should now be open with a pre-filled message. Please send the email to complete your enquiry.
                 </div>
               )}
 
               {submitStatus === 'error' && (
                 <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
-                  ❌ There was an error sending your message. Please try again or contact us directly at adrian@vidzero.com.au
+                  ❌ There was an error sending your message. Please try again or contact us directly at{' '}
+                  <a href="mailto:adrian@vidzero.com.au" className="underline hover:text-red-800">
+                    adrian@vidzero.com.au
+                  </a>
                 </div>
               )}
+
+              <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+                <p className="text-sm text-gray-600 text-center">
+                  Having trouble with the form? Email us directly at{' '}
+                  <a href="mailto:adrian@vidzero.com.au" className="text-blue-700 hover:text-blue-800 underline font-medium">
+                    adrian@vidzero.com.au
+                  </a>
+                </p>
+              </div>
             </form>
           </div>
         </div>
