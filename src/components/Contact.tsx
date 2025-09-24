@@ -9,6 +9,8 @@ const Contact = () => {
     package: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -17,11 +19,46 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    alert('Thank you for your enquiry! We\'ll be in touch soon.');
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch('https://formspree.io/f/xpqgqpqr', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          organisation: formData.organisation,
+          package: formData.package,
+          message: formData.message,
+          _subject: `New enquiry from ${formData.name} - ${formData.organisation}`,
+          _replyto: formData.email
+        })
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({
+          name: '',
+          email: '',
+          organisation: '',
+          package: '',
+          message: ''
+        });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -179,11 +216,28 @@ const Contact = () => {
 
               <button
                 type="submit"
-                className="w-full bg-blue-700 hover:bg-blue-800 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg flex items-center justify-center gap-2 group"
+                disabled={isSubmitting}
+                className={`w-full px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg flex items-center justify-center gap-2 group ${
+                  isSubmitting 
+                    ? 'bg-gray-400 cursor-not-allowed' 
+                    : 'bg-blue-700 hover:bg-blue-800 text-white transform hover:scale-105'
+                }`}
               >
-                Send Enquiry
-                <Send className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                {isSubmitting ? 'Sending...' : 'Send Enquiry'}
+                <Send className={`h-5 w-5 transition-transform ${!isSubmitting && 'group-hover:translate-x-1'}`} />
               </button>
+
+              {submitStatus === 'success' && (
+                <div className="mt-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg">
+                  ✅ Thank you for your enquiry! We'll be in touch within 24 hours.
+                </div>
+              )}
+
+              {submitStatus === 'error' && (
+                <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                  ❌ There was an error sending your message. Please try again or contact us directly at adrian@vidzero.com.au
+                </div>
+              )}
             </form>
           </div>
         </div>
