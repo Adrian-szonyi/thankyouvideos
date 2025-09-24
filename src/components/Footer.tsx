@@ -37,9 +37,10 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="text-lg font-semibold">Contact</h4>
             <div className="space-y-2 text-gray-400">
-              <p>hello@thankyoufilms.com</p>
-              <p>+61 400 123 456</p>
-              <p>Australia Wide Service</p>
+              <p>adrian@vidzero.com.au</p>
+              <p>0408 887 232</p>
+              <p>Level 36, 1 Macquarie Place</p>
+              <p>Sydney, 2000, Australia</p>
             </div>
           </div>
         </div>

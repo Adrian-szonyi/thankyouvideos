@@ -56,7 +56,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="font-semibold text-gray-900">Email</p>
-                  <p className="text-gray-600">hello@thankyoufilms.com</p>
+                  <p className="text-gray-600">adrian@vidzero.com.au</p>
                 </div>
               </div>
 
@@ -66,7 +66,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="font-semibold text-gray-900">Phone</p>
-                  <p className="text-gray-600">+61 400 123 456</p>
+                  <p className="text-gray-600">0408 887 232</p>
                 </div>
               </div>
 
@@ -76,7 +76,7 @@ const Contact = () => {
                 </div>
                 <div>
                   <p className="font-semibold text-gray-900">Location</p>
-                  <p className="text-gray-600">Australia Wide Service</p>
+                  <p className="text-gray-600">Level 36, 1 Macquarie Place<br />Sydney, 2000, Australia</p>
                 </div>
               </div>
             </div>
